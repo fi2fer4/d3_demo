@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css">
+    <script type="module" src="index.js"></script>
+    <title>Grafy</title>
+</head>
+<body>
+    <svg id="bubble-chart">
+        <defs>
+            <linearGradient id="privateGradient" x2="0.35" y2="1">
+                <stop offset="0%" stop-color="var(--color-stop)" />
+                <stop offset="30%" stop-color="var(--color-stop)" />
+                <stop offset="100%" stop-color="var(--color-bot)" />
+              </linearGradient>
+              <linearGradient id="publicGradient" x2="0.35" y2="1">
+                <stop offset="0%" stop-color="var(--color-stop)" />
+                <stop offset="30%" stop-color="var(--color-stop)" />
+                <stop offset="100%" stop-color="var(--color-bot)" />
+              </linearGradient>
+          </defs>
+        <div class="tooltip">
+            <img alt="" />
+            <div>
+                <a></a>
+                <span></span>
+            </div>
+        </div>
+    </svg>
+</body>
+</html>

@@ -1,0 +1,29 @@
+body {
+    background: linear-gradient(#100052, #1A1A1A);
+}
+
+
+text {
+    fill: whitesmoke;
+    text-align: right;
+    font-family: Roboto, Lato, sans-serif;
+
+}
+
+.private {
+    fill: url(#privateGradient);
+}
+
+.public {
+    fill:url(#publicGradient);
+}
+
+#privateGradient{
+    --color-stop: #f1b7c4;
+    --color-bot: #f3a908;
+}
+
+#publicGradient{
+    --color-stop: #8D9EF6;
+    --color-bot: #f02929;
+}
