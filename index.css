@@ -27,3 +27,32 @@ text {
     --color-stop: #8D9EF6;
     --color-bot: #f02929;
 }
+
+h1 {
+    color: whitesmoke;
+    font-family: 'Inconsolata', monospace;
+    text-align: center;
+}
+
+h2 {
+    color: whitesmoke;
+    font-family: 'Inconsolata', monospace;
+    text-align: center;
+    margin-top: 0;
+}
+
+.tooltip {
+    background: rgb(27, 27, 27);
+    padding: 10px;
+    border-radius: 10px;
+    position: absolute;
+}
+b{
+    color: whitesmoke;
+    font-family: Roboto, Lato, sans-serif;
+}
+
+span{
+    color: whitesmoke;
+    font-family: Roboto, Lato, sans-serif;
+}

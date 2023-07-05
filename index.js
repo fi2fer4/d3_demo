@@ -100,7 +100,16 @@ const drag = d3.drag()
       } else {
         return 'public';
       }
-    });
+    })
+    .on("mouseover", (e,d) => {
+      tooltip.select("h2").text(d.data.Column4);
+      tooltip.select("span").text(d.data.Column7);
+      tooltip.style("visibility", "visible");
+    })
+    .on('mousemove', e => tooltip.style('top', `${e.pageY}px`)
+      .style('left', `${e.pageX + 10}px`)
+    )
+    .on('mouseout', () => tooltip.style('visibility', 'hidden'))
 
   const label = node
     .append('text')
