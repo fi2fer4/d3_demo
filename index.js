@@ -50,50 +50,87 @@ filteredData.forEach(obj => {
 const filteredDataUni = Object.values(highestValues);
 console.log(filteredDataUni);
 
-
-
 // Buble graph
-const width = window.innerWidth;
-const height = window.innerHeight;
+ 
+const generateChart = data => {
+  const width = window.innerWidth
+  const height = window.innerHeight
 
-const generateChart = data => { 
-const bubble = data => d3.pack()
-    .size([width, height])
-    .padding(3)(d3.hierarchy({ children: data }).sum(d => d.Column7))
+  const bubble = data =>
+    d3
+      .pack()
+      .size([width, height])
+      .padding(3)(d3.hierarchy({ children: data }).sum(d => d.Column7));
 
-const root = bubble(data);
+  const root = bubble(data);
 
-const svg = d3.select('#bubble-chart')
+  const svg = d3.select('#bubble-chart')
     .style('width', width)
     .style('height', height);
 
-const tooltip = d3.select('.tooltip');
-    
-const node = svg.selectAll()
+  const tooltip = d3.select('.tooltip');
+
+  const simulation = d3.forceSimulation(root.children)
+    .force('collide', d3.forceCollide().radius(d => d.r + 1))
+    .force("x", d3.forceX(width/2).strength(0.005))
+    .force("y", d3.forceY(height/2).strength(0.005))
+    .force('charge', d3.forceManyBody().strength(-10))
+    .on('tick', ticked)
+    .alphaDecay(0);
+
+const drag = d3.drag()
+  .on('start', dragStarted)
+  .on('drag', dragged)
+  .on('end', dragEnded);
+
+  const node = svg
+    .selectAll()
     .data(root.children)
-    .enter().append('g')
-    .attr('transform', d => `translate(${d.x}, ${d.y})`);
-    
-const circle = node.append('circle')
+    .enter()
+    .append('g')
+    .attr('transform', d => `translate(${d.x}, ${d.y})`)
+    .call(drag);
+
+  const circle = node
+    .append('circle')
     .attr('r', d => d.r)
     .attr('class', d => {
       if (parseInt(d.data.Column2.charAt(0)) >= 6) {
-          return 'private';
+        return 'private';
       } else {
-          return "public"; // omit the ID attribute if the condition is not met
+        return 'public';
       }
-    })
+    });
 
-const label = node.append('text')
-  .attr('dy', '0.35em') // adjust the vertical alignment
-  .attr('text-anchor', 'middle') // align the text in the center horizontally
-  .text(d => d.data.Column4.substring(0, d.r / 4))
-  .attr('x', 0) // position the text horizontally in the center
-  .attr('y', 0) // position the text vertically in the center
+  const label = node
+    .append('text')
+    .attr('dy', '0.35em')
+    .attr('text-anchor', 'middle')
+    .text(d => d.data.Column4.substring(0, d.r / 4))
+    .attr('x', 0)
+    .attr('y', 0);
+
+    function dragStarted(event, d) {
+      if (!event.active) simulation.alphaTarget(0.3).restart();
+      d.fx = d.x;
+      d.fy = d.y;
+    }
+    
+    function dragged(event, d) {
+      d.fx = event.x;
+      d.fy = event.y;
+    }
+    
+    function dragEnded(event, d) {
+      if (!event.active) simulation.alphaTarget(0);
+      d.fx = null;
+      d.fy = null;
+    }
+
+  function ticked() {
+    node.attr('transform', d => `translate(${d.x}, ${d.y})`);
+  }
 };
-
-
-
 
 const data = filteredDataUni;
 generateChart(data);
