@@ -8,7 +8,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Inconsolata&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="index.css">
     <script type="module" src="index.js"></script>
-    <title>Grafy</title>
+    <link rel="icon" type="image/x-icon" href="/grafy/data/favicon.png">
+    <title>📈 Grafy</title>
 </head>
 <body>
     <h1>🎓 Počet studentů na univerzitách v ČR</h1>
@@ -30,8 +31,24 @@
             <div>
                 <b>Počet studentů:</b>
                 <span></span>
+                <p>Dvojklikem zobrazíte detail</p>
             </div>
         </div>
     </svg>
+    <div id="bottom">
+        <h1></h1>
+        <div></div>
+        <div id="stats">
+            <div><b>Studentů celkem: </b><span id="studentsTotal"></span></div>
+            <div><b>S přerušeným studiem: </b><span id="studentsInterrupted"></span></div>
+            <div><b>Cizinci: </b><span id="studentsForeigners"></span></div>
+
+        </div>
+        <div id="stackedArea">
+        </div>
+    </div>
+    <footer>
+        <p>📝 Veškerá data dostupná z <a href="https://www.msmt.cz/vzdelavani/skolstvi-v-cr/statistika-skolstvi/data-o-studentech-poprve-zapsanych-a-absolventech-vysokych">MŠMT</a></p>
+    </footer>
 </body>
 </html>
