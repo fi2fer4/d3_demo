@@ -12,9 +12,17 @@
     Column16: ??
     Column17: Self-payers
 */
-import jsonData from "/grafy/data/data.json" assert {
-    type: 'json'
-}; //data
+
+let jsonData
+fetch('/grafy/data/data.json')
+  .then(response => response.json())
+  .then(function(json){
+    jsonData = json;
+    console.log(jsonData)
+    const data = filterUnisByYear(jsonData, maxYear);
+    generateBubbleChart(data);
+  })
+
 import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm"; //d3v7 library
 
 const maxYear = 2022,
@@ -53,6 +61,7 @@ const filterUnisByYear = (data, year) => {
 
 // Buble graph
 const generateBubbleChart = data => {
+    debugger
     const width = window.innerWidth - 20
     const height = window.innerHeight - 100
 
@@ -68,8 +77,8 @@ const generateBubbleChart = data => {
     const root = bubble(data);
 
     const svg = d3.select('#bubble-chart')
-        .style('width', width)
-        .style('height', height);
+        .style('width', width + "px")
+        .style('height', height + "px");
 
     const tooltip = d3.select('.tooltip');
 
@@ -354,5 +363,3 @@ const generateStackedChart = data => {
         .on("mouseleave", mouseleave);
 }
 
-const data = filterUnisByYear(jsonData, maxYear);
-generateBubbleChart(data);
